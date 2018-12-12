@@ -17,6 +17,7 @@
 
 package io.shardingsphere.example.repository.api.service;
 
+import io.shardingsphere.core.exception.ShardingException;
 import io.shardingsphere.example.repository.api.entity.Order;
 import io.shardingsphere.example.repository.api.entity.OrderItem;
 import io.shardingsphere.example.repository.api.repository.OrderItemRepository;
@@ -47,10 +48,10 @@ public abstract class CommonServiceImpl implements CommonService {
     public void processSuccess(final boolean isRangeSharding) {
         System.out.println("-------------- Process Success Begin ---------------");
         List<Long> orderIds = insertData();
-        printData(isRangeSharding);
-        deleteData(orderIds);
-        printData(isRangeSharding);
-        System.out.println("-------------- Process Success Finish --------------");
+//        printData(isRangeSharding);
+//        deleteData(orderIds);
+//        printData(isRangeSharding);
+//        System.out.println("-------------- Process Success Finish --------------");
     }
     
     @Transactional
@@ -59,7 +60,7 @@ public abstract class CommonServiceImpl implements CommonService {
         System.out.println("-------------- Process Failure Begin ---------------");
         insertData();
         System.out.println("-------------- Process Failure Finish --------------");
-        throw new RuntimeException("Exception occur for transaction test.");
+        throw new ShardingException("Exception occur for transaction test.");
     }
     
     private List<Long> insertData() {

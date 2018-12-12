@@ -32,10 +32,24 @@ public abstract class ShardingProxyTransactionService extends CommonServiceImpl 
     }
     
     @Override
+    @ShardingTransactional(environment = ShardingEnvironment.PROXY)
+    public void processSuccessWithLocal() {
+        printTransactionType();
+        super.processSuccess(false);
+    }
+    
+    @Override
     @ShardingTransactional(type = TransactionType.XA, environment = ShardingEnvironment.PROXY)
-    public void processFailureWithXa() {
+    public void processFailureWithXA() {
         printTransactionType();
         super.processFailure();
+    }
+    
+    @Override
+    @ShardingTransactional(type = TransactionType.XA, environment = ShardingEnvironment.PROXY)
+    public void processSuccessWithXA() {
+        printTransactionType();
+        super.processSuccess(false);
     }
     
     @Override

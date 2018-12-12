@@ -17,15 +17,10 @@
 
 package io.shardingsphere.example.spring.boot.mybatis.nodep;
 
-import io.shardingsphere.core.constant.transaction.TransactionType;
-import io.shardingsphere.example.repository.api.service.TransactionService;
-import io.shardingsphere.example.repository.mybatis.service.SpringPojoTransactionService;
-
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.transaction.jta.JtaAutoConfiguration;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScans;
 
@@ -36,45 +31,7 @@ import org.springframework.context.annotation.ComponentScans;
 @MapperScan(basePackages = "io.shardingsphere.example.repository.mybatis.repository")
 @SpringBootApplication(exclude = JtaAutoConfiguration.class)
 public class SpringBootStarterTransactionExample {
-    
     public static void main(final String[] args) {
-        try (ConfigurableApplicationContext applicationContext = SpringApplication.run(SpringBootStarterTransactionExample.class, args)) {
-            process(applicationContext);
-        }
-    }
-    
-    private static void process(final ConfigurableApplicationContext applicationContext) {
-        TransactionService transactionService = getTransactionService(applicationContext);
-        transactionService.initEnvironment();
-        transactionService.processSuccess(false);
-        processFailureSingleTransaction(transactionService, TransactionType.LOCAL);
-        processFailureSingleTransaction(transactionService, TransactionType.XA);
-        processFailureSingleTransaction(transactionService, TransactionType.BASE);
-        processFailureSingleTransaction(transactionService, TransactionType.LOCAL);
-        transactionService.cleanEnvironment();
-    }
-    
-    private static void processFailureSingleTransaction(TransactionService transactionService, TransactionType type) {
-        try {
-            switch (type) {
-                case LOCAL:
-                    transactionService.processFailureWithLocal();
-                    break;
-                case XA:
-                    transactionService.processFailureWithXa();
-                    break;
-                case BASE:
-                    transactionService.processFailureWithBase();
-                    break;
-                default:
-            }
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-            transactionService.printData(false);
-        }
-    }
-    
-    private static TransactionService getTransactionService(final ConfigurableApplicationContext applicationContext) {
-        return applicationContext.getBean("jdbcTransactionService", SpringPojoTransactionService.class);
+        SpringApplication.run(SpringBootStarterTransactionExample.class, args);
     }
 }
