@@ -44,6 +44,12 @@ public final class ProxyPerformanceController {
         return "ok";
     }
     
+    @RequestMapping(value = "/commit/auto")
+    public String autoCommit() {
+        springPojoTransactionService.processSuccessNonTx(false);
+        return "ok";
+    }
+    
     @RequestMapping(value = "/commit/local")
     public String localCommit() {
         springPojoTransactionService.processSuccessWithLocal();
