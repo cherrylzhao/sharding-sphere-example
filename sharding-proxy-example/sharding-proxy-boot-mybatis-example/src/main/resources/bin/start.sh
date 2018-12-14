@@ -1,5 +1,5 @@
 #!/bin/bash
-SERVER_NAME=sharding-boot-nodep-mybatis-jdbc
+SERVER_NAME=sharding-boot-nodep-mybatis-proxy
 
 cd `dirname $0`
 cd ..
@@ -25,7 +25,7 @@ JAVA_OPTS=" -Djava.awt.headless=true -Djava.net.preferIPv4Stack=true "
 JAVA_MEM_OPTS=" -server -Xmx4g -Xms4g -Xmn2g -Xss256k -XX:+DisableExplicitGC -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:LargePageSizeInBytes=128m -XX:+UseFastAccessorMethods
 -XX:+UseCMSInitiatingOccupancyOnly -XX:CMSInitiatingOccupancyFraction=70 "
 
-MAIN_CLASS=io.shardingsphere.example.spring.boot.mybatis.nodep.SpringBootStarterTransactionExample
+MAIN_CLASS=io.shardingsphere.example.proxy.spring.boot.mybatis.SpringBootStarterTransactionExample
 
 echo "Starting the $SERVER_NAME ..."
 

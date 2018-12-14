@@ -1,5 +1,5 @@
 #!/bin/bash
-SERVER_NAME=sharding-boot-nodep-mybatis-jdbc
+SERVER_NAME=sharding-boot-nodep-mybatis-proxy
 
 cd `dirname $0`
 cd ..
