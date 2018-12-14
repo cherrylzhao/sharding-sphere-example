@@ -43,6 +43,12 @@ public abstract class CommonServiceImpl implements CommonService {
         getOrderItemRepository().dropTable();
     }
     
+    @Override
+    public void processSuccessNonTx(final boolean isRangeSharding) {
+        System.out.println("-------------- Process Success none tx Begin ---------------");
+        insertData();
+    }
+    
     @Transactional
     @Override
     public void processSuccess(final boolean isRangeSharding) {
