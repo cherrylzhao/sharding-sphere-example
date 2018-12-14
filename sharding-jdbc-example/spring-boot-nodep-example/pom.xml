@@ -23,7 +23,7 @@
         </dependency>
         <dependency>
             <groupId>io.shardingsphere</groupId>
-            <artifactId>sharding-transaction-xa</artifactId>
+            <artifactId>sharding-transaction-reg-xa</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
