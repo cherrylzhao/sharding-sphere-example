@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 public final class JDBCPerformanceController {
     
     @Autowired
-    @Qualifier("jdbcTransactionService")
+    @Qualifier("shardingTransactionService")
     private SpringPojoTransactionService springPojoTransactionService;
     
     @RequestMapping(value = "/init")

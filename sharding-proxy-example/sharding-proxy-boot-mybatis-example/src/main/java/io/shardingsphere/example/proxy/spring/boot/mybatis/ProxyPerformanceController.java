@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 public final class ProxyPerformanceController {
     
     @Autowired
-    @Qualifier("proxyTransactionService")
+    @Qualifier("shardingTransactionService")
     private SpringPojoTransactionService springPojoTransactionService;
     
     @RequestMapping(value = "/init")

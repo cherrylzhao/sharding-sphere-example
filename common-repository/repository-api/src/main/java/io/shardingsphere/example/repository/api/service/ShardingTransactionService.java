@@ -19,41 +19,46 @@ package io.shardingsphere.example.repository.api.service;
 
 import io.shardingsphere.core.constant.transaction.TransactionType;
 import io.shardingsphere.core.transaction.TransactionTypeHolder;
-import io.shardingsphere.transaction.ShardingEnvironment;
-import io.shardingsphere.transaction.annotation.ShardingTransactional;
+import io.shardingsphere.transaction.annotation.ShardingTransactionType;
+import org.springframework.transaction.annotation.Transactional;
 
-public abstract class ShardingProxyTransactionService extends CommonServiceImpl implements TransactionService {
+public abstract class ShardingTransactionService extends CommonServiceImpl implements TransactionService {
     
     @Override
-    @ShardingTransactional(environment = ShardingEnvironment.PROXY)
+    @ShardingTransactionType
+    @Transactional
     public void processFailureWithLocal() {
         printTransactionType();
         super.processFailure();
     }
     
     @Override
-    @ShardingTransactional(environment = ShardingEnvironment.PROXY)
+    @ShardingTransactionType
+    @Transactional
     public void processSuccessWithLocal() {
         printTransactionType();
         super.processSuccess(false);
     }
     
     @Override
-    @ShardingTransactional(type = TransactionType.XA, environment = ShardingEnvironment.PROXY)
+    @ShardingTransactionType(TransactionType.XA)
+    @Transactional
     public void processFailureWithXA() {
         printTransactionType();
         super.processFailure();
     }
     
     @Override
-    @ShardingTransactional(type = TransactionType.XA, environment = ShardingEnvironment.PROXY)
+    @ShardingTransactionType(TransactionType.XA)
+    @Transactional
     public void processSuccessWithXA() {
         printTransactionType();
         super.processSuccess(false);
     }
     
     @Override
-    @ShardingTransactional(type = TransactionType.BASE, environment = ShardingEnvironment.PROXY)
+    @ShardingTransactionType(TransactionType.BASE)
+    @Transactional
     public void processFailureWithBase() {
         printTransactionType();
         super.processFailure();
