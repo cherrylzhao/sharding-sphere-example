@@ -79,4 +79,19 @@ public final class JDBCPerformanceController {
         }
         return "ok";
     }
+    
+    @RequestMapping(value = "/commit/base")
+    public String baseCommit() {
+        springPojoTransactionService.processSuccessWithBase();
+        return "ok";
+    }
+    
+    @RequestMapping(value = "/rollback/base")
+    public String baseRollback() {
+        try {
+            springPojoTransactionService.processFailureWithBase();
+        } catch (final ShardingException ignore) {
+        }
+        return "ok";
+    }
 }

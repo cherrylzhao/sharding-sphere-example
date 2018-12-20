@@ -59,6 +59,14 @@ public abstract class ShardingTransactionService extends CommonServiceImpl imple
     @Override
     @ShardingTransactionType(TransactionType.BASE)
     @Transactional
+    public void processSuccessWithBase() {
+        printTransactionType();
+        super.processSuccess(false);
+    }
+    
+    @Override
+    @ShardingTransactionType(TransactionType.BASE)
+    @Transactional
     public void processFailureWithBase() {
         printTransactionType();
         super.processFailure();

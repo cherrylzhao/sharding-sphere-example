@@ -27,5 +27,7 @@ public interface TransactionService extends CommonService {
     
     void processSuccessWithXA();
     
+    void processSuccessWithBase();
+    
     void processFailureWithBase();
 }

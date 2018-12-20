@@ -77,4 +77,16 @@ public final class ProxyPerformanceController {
         } catch (final ShardingException ignore) {}
         return "ok";
     }
+    
+    @RequestMapping(value = "/commit/base")
+    public String baseCommit() {
+        springPojoTransactionService.processSuccessWithBase();
+        return "ok";
+    }
+    
+    @RequestMapping(value = "/rollback/base")
+    public String baseRollback() {
+        springPojoTransactionService.processFailureWithBase();
+        return "ok";
+    }
 }
