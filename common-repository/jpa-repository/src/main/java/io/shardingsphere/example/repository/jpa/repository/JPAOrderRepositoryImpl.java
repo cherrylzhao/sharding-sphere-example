@@ -28,7 +28,6 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
-@Transactional
 public class JPAOrderRepositoryImpl implements OrderRepository {
     
     @PersistenceContext
@@ -50,12 +49,14 @@ public class JPAOrderRepositoryImpl implements OrderRepository {
     }
     
     @Override
+    @Transactional
     public Long insert(final Order order) {
         entityManager.persist(order);
         return order.getOrderId();
     }
     
     @Override
+    @Transactional
     public void delete(final Long orderId) {
         Query query = entityManager.createQuery("DELETE FROM OrderEntity o WHERE o.orderId = ?1");
         query.setParameter(1, orderId);

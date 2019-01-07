@@ -11,9 +11,8 @@
         </encoder>
     </appender>
     <logger name="org.springframework" level="WARN" />
-    <logger name="com.zaxxer.hikari" level="WARN" />
     <root>
-        <level value="INFO" />
+        <level value="DEBUG" />
         <appender-ref ref="STDOUT" />
     </root>
 </configuration>
