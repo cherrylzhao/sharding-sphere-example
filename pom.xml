@@ -22,6 +22,8 @@
         <project.build.locale>zh_CN</project.build.locale>
         
         <sharding-sphere.version>4.0.0.M1-SNAPSHOT</sharding-sphere.version>
+        <sharding-sphere.bitronix.version>1.0-SNAPSHOT</sharding-sphere.bitronix.version>
+
     
         <aspectjweaver.version>1.8.9</aspectjweaver.version>
         <spring-framework.version>4.3.20.RELEASE</spring-framework.version>
@@ -93,8 +95,13 @@
             </dependency>
             <dependency>
                 <groupId>io.shardingsphere</groupId>
-                <artifactId>sharding-transaction-2pc-xa</artifactId>
+                <artifactId>sharding-transaction-xa-core</artifactId>
                 <version>${project.parent.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.cherrylzhao</groupId>
+                <artifactId>sharding-transaction-xa-bitronix</artifactId>
+                <version>${sharding-sphere.bitronix.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.shardingsphere</groupId>
