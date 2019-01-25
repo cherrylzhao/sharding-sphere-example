@@ -50,14 +50,17 @@
     
     <bean id="preciseModuloDatabaseShardingAlgorithm" class="io.shardingsphere.example.algorithm.PreciseModuloShardingDatabaseAlgorithm" />
     <bean id="rangeModuloDatabaseShardingAlgorithm" class="io.shardingsphere.example.algorithm.RangeModuloShardingDatabaseAlgorithm" />
-    
+
+    <sharding:key-generator id="orderKeyGenerator" type="SNOWFLAKE" column="order_id" />
+    <sharding:key-generator id="itemKeyGenerator" type="SNOWFLAKE" column="order_item_id" />
+
     <sharding:standard-strategy id="databaseShardingStrategy" sharding-column="user_id" precise-algorithm-ref="preciseModuloDatabaseShardingAlgorithm" range-algorithm-ref="rangeModuloDatabaseShardingAlgorithm"/>
     
     <sharding:data-source id="shardingDataSource">
         <sharding:sharding-rule data-source-names="demo_ds_0, demo_ds_1">
             <sharding:table-rules>
-                <sharding:table-rule logic-table="t_order" database-strategy-ref="databaseShardingStrategy" generate-key-column-name="order_id" />
-                <sharding:table-rule logic-table="t_order_item" database-strategy-ref="databaseShardingStrategy" generate-key-column-name="order_item_id" />
+                <sharding:table-rule logic-table="t_order" database-strategy-ref="databaseShardingStrategy" key-generator-ref="orderKeyGenerator" />
+                <sharding:table-rule logic-table="t_order_item" database-strategy-ref="databaseShardingStrategy" key-generator-ref="itemKeyGenerator" />
             </sharding:table-rules>
         </sharding:sharding-rule>
     </sharding:data-source>
