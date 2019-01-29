@@ -29,7 +29,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.shardingsphere</groupId>
-            <artifactId>sharding-transaction-xa</artifactId>
+            <artifactId>sharding-transaction-xa-core</artifactId>
         </dependency>
     
         <dependency>

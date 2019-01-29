@@ -108,6 +108,11 @@ public final class JDBCOrderRepositoryImpl implements OrderRepository {
         return getOrders(sql);
     }
     
+    @Override
+    public Long update(Order entity) {
+        return null;
+    }
+    
     private List<Order> getOrders(final String sql) {
         List<Order> result = new LinkedList<>();
         try (Connection connection = dataSource.getConnection();

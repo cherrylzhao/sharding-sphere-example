@@ -74,4 +74,9 @@ public class JPAOrderRepositoryImpl implements OrderRepository {
     public List<Order> selectRange() {
         return (List<Order>) entityManager.createQuery("SELECT o FROM OrderEntity o WHERE orderId BETWEEN 200000000000000000 AND 400000000000000000").getResultList();
     }
+    
+    @Override
+    public Long update(Order entity) {
+        return null;
+    }
 }
