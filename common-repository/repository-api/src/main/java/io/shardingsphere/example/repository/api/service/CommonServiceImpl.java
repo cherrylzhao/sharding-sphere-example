@@ -69,6 +69,13 @@ public abstract class CommonServiceImpl implements CommonService {
         throw new ShardingException("Exception occur for transaction test.");
     }
     
+    @Transactional
+    @Override
+    public void processUpdate() {
+        updateData();
+    }
+    
+    
     private List<Long> insertData() {
         System.out.println("---------------------------- Insert Data ----------------------------");
         List<Long> result = new ArrayList<>(10);
@@ -83,6 +90,28 @@ public abstract class CommonServiceImpl implements CommonService {
             item.setStatus("INSERT_TEST");
             getOrderItemRepository().insert(item);
             result.add(order.getOrderId());
+        }
+        return result;
+    }
+    
+    private List<Long> updateData() {
+        System.out.println("---------------------------- Insert Data ----------------------------");
+        List<Long> result = new ArrayList<>(10);
+        for (int i = 1; i <= 10; i++) {
+//            Order order = newOrder();
+//            order.setUserId(i);
+//            order.setStatus("INSERT_TEST");
+//            getOrderRepository().insert(order);
+//            OrderItem item = newOrderItem();
+//            item.setOrderId(order.getOrderId());
+//            item.setUserId(i);
+//            item.setStatus("INSERT_TEST");
+//            getOrderItemRepository().insert(item);
+//            result.add(order.getOrderId());
+            OrderItem updateItem = new OrderItem();
+            updateItem.setOrderId(296694119852408833L);
+            updateItem.setStatus("UPDATE_TEST");
+            getOrderItemRepository().update(updateItem);
         }
         return result;
     }

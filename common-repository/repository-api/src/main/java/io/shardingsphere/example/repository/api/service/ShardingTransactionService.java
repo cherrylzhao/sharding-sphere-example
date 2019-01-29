@@ -57,6 +57,14 @@ public abstract class ShardingTransactionService extends CommonServiceImpl imple
     }
     
     @Override
+    @ShardingTransactionType(TransactionType.XA)
+    @Transactional
+    public void processUpdateWithXA() {
+        printTransactionType();
+        super.processUpdate();
+    }
+    
+    @Override
     @ShardingTransactionType(TransactionType.BASE)
     @Transactional
     public void processSuccessWithBase() {

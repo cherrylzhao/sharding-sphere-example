@@ -34,4 +34,6 @@ public interface CommonRepository<T> {
     List<T> selectAll();
     
     List<T> selectRange();
+    
+    Long update(T entity);
 }

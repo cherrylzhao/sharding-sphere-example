@@ -100,4 +100,11 @@ public final class JDBCPerformanceController {
         }
         return "ok";
     }
+    
+    @RequestMapping(value = "/update/xa")
+    public String xaUpdate() {
+        springPojoTransactionService.processUpdateWithXA();
+        return "ok";
+    }
+    
 }

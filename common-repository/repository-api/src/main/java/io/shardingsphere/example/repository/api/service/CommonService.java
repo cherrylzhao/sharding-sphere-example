@@ -30,4 +30,6 @@ public interface CommonService {
     void processFailure();
     
     void printData(boolean isRangeSharding);
+    
+    void processUpdate();
 }
