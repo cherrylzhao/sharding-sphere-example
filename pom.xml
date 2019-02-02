@@ -24,7 +24,7 @@
         <sharding-sphere.version>4.0.0.M1-SNAPSHOT</sharding-sphere.version>
         <sharding-sphere.bitronix.version>1.0-SNAPSHOT</sharding-sphere.bitronix.version>
 
-    
+        <skywalking.version>6.0.0-GA</skywalking.version>
         <aspectjweaver.version>1.8.9</aspectjweaver.version>
         <spring-framework.version>4.3.20.RELEASE</spring-framework.version>
         <spring-boot.version>1.5.17.RELEASE</spring-boot.version>
@@ -66,6 +66,11 @@
             <dependency>
                 <groupId>org.apache.shardingsphere</groupId>
                 <artifactId>sharding-jdbc-orchestration</artifactId>
+                <version>${sharding-sphere.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.shardingsphere</groupId>
+                <artifactId>sharding-opentracing</artifactId>
                 <version>${sharding-sphere.version}</version>
             </dependency>
             <dependency>
@@ -113,7 +118,12 @@
                 <artifactId>sharding-orchestration-reg-etcd</artifactId>
                 <version>${sharding-sphere.version}</version>
             </dependency>
-    
+
+            <dependency>
+                <groupId>org.apache.skywalking</groupId>
+                <artifactId>apm-toolkit-opentracing</artifactId>
+                <version>${skywalking.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.aspectj</groupId>
                 <artifactId>aspectjweaver</artifactId>

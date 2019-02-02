@@ -17,6 +17,8 @@
 
 package io.shardingsphere.example.spring.boot.mybatis.nodep;
 
+import org.apache.shardingsphere.opentracing.ShardingTracer;
+import org.apache.skywalking.apm.toolkit.opentracing.SkywalkingTracer;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -32,6 +34,7 @@ import org.springframework.context.annotation.ComponentScans;
 @SpringBootApplication(exclude = JtaAutoConfiguration.class)
 public class SpringBootStarterTransactionExample {
     public static void main(final String[] args) {
+        ShardingTracer.init(new SkywalkingTracer());
         SpringApplication.run(SpringBootStarterTransactionExample.class, args);
     }
 }

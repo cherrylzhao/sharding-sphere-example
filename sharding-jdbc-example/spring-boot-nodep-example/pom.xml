@@ -25,6 +25,14 @@
             <groupId>org.apache.shardingsphere</groupId>
             <artifactId>sharding-transaction-xa-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.apache.shardingsphere</groupId>
+            <artifactId>sharding-opentracing</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.skywalking</groupId>
+            <artifactId>apm-toolkit-opentracing</artifactId>
+        </dependency>
         <!--<dependency>-->
             <!--<groupId>io.shardingsphere</groupId>-->
             <!--<artifactId>sharding-transaction-base-saga</artifactId>-->
