@@ -24,13 +24,45 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.concurrent.atomic.AtomicLong;
+
 @RestController
 @RequestMapping(value = "/jdbc")
 public final class JDBCPerformanceController {
     
+    private static AtomicLong id = new AtomicLong();
+    
     @Autowired
     @Qualifier("shardingTransactionService")
     private SpringPojoTransactionService springPojoTransactionService;
+    
+    @Autowired
+    private DataSource shardingDataSource;
+    
+    @RequestMapping(value = "/select/prepare")
+    public String prepare() throws SQLException {
+        String sql = String.format("select * from t_order where order_id = %d", id.incrementAndGet());
+        try (Connection connection = shardingDataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.execute();
+        }
+        return "ok";
+    }
+    
+    @RequestMapping(value = "/select/statement")
+    public String statement() throws SQLException {
+        String sql = String.format("select * from t_order where order_id = %d", id.incrementAndGet());
+        try (Connection connection = shardingDataSource.getConnection();
+             Statement statement = connection.createStatement()) {
+            statement.execute(sql);
+        }
+        return "ok";
+    }
     
     @RequestMapping(value = "/init")
     public String init() {
