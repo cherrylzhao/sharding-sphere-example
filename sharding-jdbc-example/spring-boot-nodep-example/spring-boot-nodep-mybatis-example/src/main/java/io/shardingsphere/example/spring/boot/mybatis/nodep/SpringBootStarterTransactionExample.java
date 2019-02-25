@@ -17,7 +17,7 @@
 
 package io.shardingsphere.example.spring.boot.mybatis.nodep;
 
-import org.apache.shardingsphere.opentracing.ShardingTracer;
+import io.shardingsphere.opentracing.ShardingTracer;
 import org.apache.skywalking.apm.toolkit.opentracing.SkywalkingTracer;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;

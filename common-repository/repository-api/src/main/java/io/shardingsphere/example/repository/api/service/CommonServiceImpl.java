@@ -17,11 +17,11 @@
 
 package io.shardingsphere.example.repository.api.service;
 
+import io.shardingsphere.core.exception.ShardingException;
 import io.shardingsphere.example.repository.api.entity.Order;
 import io.shardingsphere.example.repository.api.entity.OrderItem;
 import io.shardingsphere.example.repository.api.repository.OrderItemRepository;
 import io.shardingsphere.example.repository.api.repository.OrderRepository;
-import org.apache.shardingsphere.core.exception.ShardingException;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;

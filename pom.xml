@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.shardingsphere</groupId>
     <artifactId>sharding-sphere-example</artifactId>
-    <version>4.0.0.M1-SNAPSHOT</version>
+    <version>3.1.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     
     <modules>
@@ -21,7 +21,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.locale>zh_CN</project.build.locale>
         
-        <sharding-sphere.version>4.0.0.M1-SNAPSHOT</sharding-sphere.version>
+        <sharding-sphere.version>3.1.0.1-SNAPSHOT</sharding-sphere.version>
         <sharding-sphere.bitronix.version>1.0-SNAPSHOT</sharding-sphere.bitronix.version>
 
         <skywalking.version>6.0.0-GA</skywalking.version>
@@ -54,29 +54,29 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.apache.shardingsphere</groupId>
+                <groupId>io.shardingsphere</groupId>
                 <artifactId>sharding-core</artifactId>
                 <version>${sharding-sphere.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.shardingsphere</groupId>
+                <groupId>io.shardingsphere</groupId>
                 <artifactId>sharding-jdbc-core</artifactId>
                 <version>${sharding-sphere.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.shardingsphere</groupId>
+                <groupId>io.shardingsphere</groupId>
                 <artifactId>sharding-jdbc-orchestration</artifactId>
                 <version>${sharding-sphere.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.shardingsphere</groupId>
+                <groupId>io.shardingsphere</groupId>
                 <artifactId>sharding-opentracing</artifactId>
                 <version>${sharding-sphere.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.shardingsphere</groupId>
                 <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
-                <version>${sharding-sphere.version}</version>
+                <version>3.1.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>io.shardingsphere</groupId>
@@ -94,8 +94,8 @@
                 <version>${sharding-sphere.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.shardingsphere</groupId>
-                <artifactId>sharding-transaction-xa-core</artifactId>
+                <groupId>io.shardingsphere</groupId>
+                <artifactId>sharding-transaction-2pc-xa</artifactId>
                 <version>${sharding-sphere.version}</version>
             </dependency>
             <dependency>
@@ -106,7 +106,7 @@
             <dependency>
                 <groupId>io.shardingsphere</groupId>
                 <artifactId>sharding-transaction-spring</artifactId>
-                <version>${project.parent.version}</version>
+                <version>3.1.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>io.shardingsphere</groupId>
