@@ -17,11 +17,10 @@
 
 package io.shardingsphere.example.spring.boot.jpa.nodep;
 
-import io.shardingsphere.core.exception.ShardingException;
 import io.shardingsphere.example.repository.jpa.service.SpringEntityTransactionService;
+import org.apache.shardingsphere.core.exception.ShardingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
