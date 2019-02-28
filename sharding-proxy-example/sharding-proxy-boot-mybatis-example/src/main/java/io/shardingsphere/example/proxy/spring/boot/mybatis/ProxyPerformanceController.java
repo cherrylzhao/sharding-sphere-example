@@ -28,6 +28,7 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 @RestController
 @RequestMapping("/proxy")
@@ -46,6 +47,16 @@ public final class ProxyPerformanceController {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.execute();
+        }
+        return "ok";
+    }
+    
+    @RequestMapping(value = "/statement")
+    public String queryStatement() throws SQLException {
+        String sql = String.format("select * from t_order where order_id = %d", 3);
+        try (Connection connection = dataSource.getConnection();
+             Statement statement = connection.createStatement()) {
+            statement.execute(sql);
         }
         return "ok";
     }
