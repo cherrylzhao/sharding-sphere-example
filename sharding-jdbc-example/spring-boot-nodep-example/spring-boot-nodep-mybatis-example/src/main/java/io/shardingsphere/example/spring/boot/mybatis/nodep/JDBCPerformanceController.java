@@ -54,9 +54,39 @@ public final class JDBCPerformanceController {
         return "ok";
     }
     
+    @RequestMapping(value = "/prepare")
+    public String prepareFixture() throws SQLException {
+        String sql = String.format("select * from t_order where order_id = %d", 3);
+        try (Connection connection = shardingDataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.execute();
+        }
+        return "ok";
+    }
+    
     @RequestMapping(value = "/select/statement")
     public String statement() throws SQLException {
         String sql = String.format("select * from t_order where order_id = %d", id.incrementAndGet());
+        try (Connection connection = shardingDataSource.getConnection();
+             Statement statement = connection.createStatement()) {
+            statement.execute(sql);
+        }
+        return "ok";
+    }
+    
+    @RequestMapping(value = "/show/tables")
+    public String showTable() throws SQLException {
+        String sql = "show tables in ds_ms";
+        try (Connection connection = shardingDataSource.getConnection();
+             Statement statement = connection.createStatement()) {
+            statement.execute(sql);
+        }
+        return "ok";
+    }
+    
+    @RequestMapping(value = "/show/sharding")
+    public String showSharding() throws SQLException {
+        String sql = "show tables in shardingdb";
         try (Connection connection = shardingDataSource.getConnection();
              Statement statement = connection.createStatement()) {
             statement.execute(sql);
