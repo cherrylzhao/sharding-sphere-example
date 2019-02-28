@@ -24,6 +24,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 @RestController
 @RequestMapping("/proxy")
 public final class ProxyPerformanceController {
@@ -31,6 +36,19 @@ public final class ProxyPerformanceController {
     @Autowired
     @Qualifier("shardingTransactionService")
     private SpringPojoTransactionService springPojoTransactionService;
+    
+    @Autowired
+    private DataSource dataSource;
+    
+    @RequestMapping(value = "/prepare")
+    public String prepareFixture() throws SQLException {
+        String sql = String.format("select * from t_order where order_id = %d", 3);
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.execute();
+        }
+        return "ok";
+    }
     
     @RequestMapping(value = "/init")
     public String init() {
