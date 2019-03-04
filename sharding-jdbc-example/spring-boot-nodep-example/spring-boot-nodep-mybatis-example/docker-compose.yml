@@ -1,0 +1,28 @@
+version: '2.2'
+services:
+  database:
+    image: "mysql/mysql-server:5.7"
+    hostname: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - ./mysql/config/my.cnf:/etc/my.cnf
+      - ./mysql/init:/docker-entrypoint-initdb.d/
+    healthcheck:
+      test: ["CMD-SHELL", "nc -z localhost 3306 &> /dev/null; echo $$?"]
+      interval: 3s
+      timeout: 10s
+      retries: 5
+    ports:
+      - "3337:3306"
+  example:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: boot-example
+    links:
+      - "database:mysql.apache.shardingsphere"
+    ports:
+      - 8080
+    depends_on:
+      database:
+        condition: service_healthy
