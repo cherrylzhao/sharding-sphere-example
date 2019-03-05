@@ -18,26 +18,31 @@
 package io.shardingsphere.example.jdbc;
 
 import io.shardingsphere.example.config.ExampleConfiguration;
+import io.shardingsphere.example.jdbc.nodep.YamlConfigurationExample;
 import io.shardingsphere.example.jdbc.nodep.config.ShardingTablesConfigurationPrecise;
 import io.shardingsphere.example.repository.api.service.CommonService;
 import io.shardingsphere.example.repository.jdbc.repository.JDBCOrderItemRepositoryImpl;
 import io.shardingsphere.example.repository.jdbc.repository.JDBCOrderRepositoryImpl;
 import io.shardingsphere.example.repository.jdbc.service.RawPojoService;
+import io.shardingsphere.shardingjdbc.api.yaml.YamlShardingDataSourceFactory;
+import org.junit.Before;
 import org.junit.Test;
 
 import javax.sql.DataSource;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.atomic.AtomicLong;
 
-public class JavaConfigurationExampleTest {
+public class YamlConfigurationExampleTest {
     
-    @Test
-    public void init() throws SQLException {
+    @Before
+    public void setUp() throws SQLException {
+        YamlShardingDataSourceFactory.createDataSource(new File(YamlConfigurationExample.class.getResource(result).getFile())()
         ExampleConfiguration exampleConfig = new ShardingTablesConfigurationPrecise();
         DataSource dataSource = exampleConfig.getDataSource();
         CommonService commonService = new RawPojoService(new JDBCOrderRepositoryImpl(dataSource), new JDBCOrderItemRepositoryImpl(dataSource));
@@ -50,13 +55,15 @@ public class JavaConfigurationExampleTest {
         final DataSource dataSource = exampleConfig.getDataSource();
         ExecutorService executorService = Executors.newFixedThreadPool(10);
         final CountDownLatch latch = new CountDownLatch(100);
+        final AtomicLong orderId = new AtomicLong(0);
         for (int i = 0; i < 100; i++) {
             executorService.execute(new Runnable() {
                 @Override
                 public void run() {
                     try {
-                        executeQuery(dataSource);
+                        executeQuery(dataSource, orderId.incrementAndGet());
                         latch.countDown();
+                        
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
@@ -66,11 +73,11 @@ public class JavaConfigurationExampleTest {
         latch.await();
     }
     
-    private void executeQuery(final DataSource dataSource) throws SQLException {
+    private void executeQuery(final DataSource dataSource, final Long orderId) throws SQLException {
         String sql = "select * from t_order where order_id = ?";
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setLong(1, 30);
+            preparedStatement.setLong(1, orderId);
             preparedStatement.execute();
         }
     }
