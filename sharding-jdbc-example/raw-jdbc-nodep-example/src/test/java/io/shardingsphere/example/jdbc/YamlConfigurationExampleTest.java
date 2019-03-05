@@ -30,6 +30,7 @@ import org.junit.Test;
 
 import javax.sql.DataSource;
 import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -40,19 +41,18 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class YamlConfigurationExampleTest {
     
+    private File yamlFile = new File(YamlConfigurationExample.class.getResource("/META-INF/sharding-tables.yaml").getFile());
+    
     @Before
-    public void setUp() throws SQLException {
-        YamlShardingDataSourceFactory.createDataSource(new File(YamlConfigurationExample.class.getResource(result).getFile())()
-        ExampleConfiguration exampleConfig = new ShardingTablesConfigurationPrecise();
-        DataSource dataSource = exampleConfig.getDataSource();
+    public void setUp() throws SQLException, IOException {
+        DataSource dataSource = YamlShardingDataSourceFactory.createDataSource(yamlFile);
         CommonService commonService = new RawPojoService(new JDBCOrderRepositoryImpl(dataSource), new JDBCOrderItemRepositoryImpl(dataSource));
         commonService.initEnvironment();
     }
     
     @Test
-    public void assertTableShardingMultiThread() throws SQLException, InterruptedException {
-        ExampleConfiguration exampleConfig = new ShardingTablesConfigurationPrecise();
-        final DataSource dataSource = exampleConfig.getDataSource();
+    public void assertTableShardingMultiThread() throws SQLException, InterruptedException, IOException {
+        final DataSource dataSource = YamlShardingDataSourceFactory.createDataSource(yamlFile);
         ExecutorService executorService = Executors.newFixedThreadPool(10);
         final CountDownLatch latch = new CountDownLatch(100);
         final AtomicLong orderId = new AtomicLong(0);
@@ -63,7 +63,6 @@ public class YamlConfigurationExampleTest {
                     try {
                         executeQuery(dataSource, orderId.incrementAndGet());
                         latch.countDown();
-                        
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
