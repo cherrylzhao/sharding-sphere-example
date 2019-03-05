@@ -17,9 +17,7 @@
 
 package io.shardingsphere.example.jdbc;
 
-import io.shardingsphere.example.config.ExampleConfiguration;
 import io.shardingsphere.example.jdbc.nodep.YamlConfigurationExample;
-import io.shardingsphere.example.jdbc.nodep.config.ShardingTablesConfigurationPrecise;
 import io.shardingsphere.example.repository.api.service.CommonService;
 import io.shardingsphere.example.repository.jdbc.repository.JDBCOrderItemRepositoryImpl;
 import io.shardingsphere.example.repository.jdbc.repository.JDBCOrderRepositoryImpl;
