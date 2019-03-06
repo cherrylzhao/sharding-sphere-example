@@ -19,13 +19,18 @@ package io.shardingsphere.example.algorithm;
 
 import io.shardingsphere.api.algorithm.sharding.PreciseShardingValue;
 import io.shardingsphere.api.algorithm.sharding.standard.PreciseShardingAlgorithm;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
 
 public class PreciseModuloShardingTableAlgorithm implements PreciseShardingAlgorithm<Long> {
     
+    private final Logger logger = LoggerFactory.getLogger(PreciseModuloShardingTableAlgorithm.class);
+    
     @Override
     public String doSharding(final Collection<String> tableNames, final PreciseShardingValue<Long> shardingValue) {
+        logger.info("{}:{}:{}", shardingValue.getLogicTableName(), shardingValue.getColumnName(), shardingValue.getValue());
         for (String each : tableNames) {
             if (each.endsWith(shardingValue.getValue() % 2 + "")) {
                 return each;

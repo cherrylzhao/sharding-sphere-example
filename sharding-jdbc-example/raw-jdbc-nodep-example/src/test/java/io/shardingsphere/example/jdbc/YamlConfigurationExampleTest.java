@@ -35,7 +35,6 @@ import java.sql.SQLException;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.atomic.AtomicLong;
 
 public class YamlConfigurationExampleTest {
     
@@ -53,13 +52,23 @@ public class YamlConfigurationExampleTest {
         final DataSource dataSource = YamlShardingDataSourceFactory.createDataSource(yamlFile);
         ExecutorService executorService = Executors.newFixedThreadPool(10);
         final CountDownLatch latch = new CountDownLatch(100);
-        final AtomicLong orderId = new AtomicLong(0);
         for (int i = 0; i < 100; i++) {
             executorService.execute(new Runnable() {
                 @Override
                 public void run() {
                     try {
-                        executeQuery(dataSource, orderId.incrementAndGet());
+                        executeQuery(dataSource, 0L);
+                        latch.countDown();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            executorService.execute(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        executeQueryOrderItem(dataSource, 1L);
                         latch.countDown();
                     } catch (SQLException e) {
                         e.printStackTrace();
@@ -72,6 +81,15 @@ public class YamlConfigurationExampleTest {
     
     private void executeQuery(final DataSource dataSource, final Long orderId) throws SQLException {
         String sql = "select * from t_order where order_id = ?";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setLong(1, orderId);
+            preparedStatement.execute();
+        }
+    }
+    
+    private void executeQueryOrderItem(final DataSource dataSource, final Long orderId) throws SQLException {
+        String sql = "select * from t_order_item where order_id = ?";
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setLong(1, orderId);
