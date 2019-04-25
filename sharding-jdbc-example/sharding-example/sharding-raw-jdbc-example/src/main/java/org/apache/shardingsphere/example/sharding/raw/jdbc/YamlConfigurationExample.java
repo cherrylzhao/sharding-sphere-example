@@ -26,6 +26,8 @@ import org.apache.shardingsphere.example.type.ShardingType;
 
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /*
@@ -33,18 +35,63 @@ import java.sql.SQLException;
  */
 public class YamlConfigurationExample {
     
-    private static ShardingType shardingType = ShardingType.SHARDING_DATABASES;
+//    private static ShardingType shardingType = ShardingType.SHARDING_DATABASES;
 //    private static ShardingType shardingType = ShardingType.SHARDING_TABLES;
-//    private static ShardingType shardingType = ShardingType.SHARDING_DATABASES_AND_TABLES;
+    private static ShardingType shardingType = ShardingType.SHARDING_DATABASES_AND_TABLES;
 //    private static ShardingType shardingType = ShardingType.MASTER_SLAVE;
 //    private static ShardingType shardingType = ShardingType.SHARDING_MASTER_SLAVE;
     
     public static void main(final String[] args) throws SQLException, IOException {
+//        DataSource dataSource = YamlDataSourceFactory.newInstance(shardingType);
+//        CommonService commonService = getCommonService(dataSource);
+//        commonService.initEnvironment();
+//        commonService.processSuccess();
+//        commonService.cleanEnvironment();
+        
+//        try (Connection connection = dataSource.getConnection()) {
+//            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO t_order (user_id, status) VALUES (?, ?),(?,?),(?,?)");
+//            preparedStatement.setLong(1, 1);
+//            preparedStatement.setString(2, "init");
+//            preparedStatement.setLong(3, 2);
+//            preparedStatement.setString(4, "init");
+//            preparedStatement.setLong(5, 3);
+//            preparedStatement.setString(6, "init");
+//            preparedStatement.execute();
+//        }
+        
         DataSource dataSource = YamlDataSourceFactory.newInstance(shardingType);
-        CommonService commonService = getCommonService(dataSource);
-        commonService.initEnvironment();
-        commonService.processSuccess();
-        commonService.cleanEnvironment();
+        try (Connection connection = dataSource.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement("delete from t_order where user_id = ? and order_id =?");
+            preparedStatement.setLong(1, 1);
+            preparedStatement.setLong(2, 1);
+            preparedStatement.execute();
+        }
+    
+//        try (Connection connection = dataSource.getConnection()) {
+//            Statement statement = connection.createStatement();
+//            statement.execute("delete from t_order where user_id = 1 and order_id =1");
+//        }
+    
+//        try (Connection connection = dataSource.getConnection()) {
+//            Statement statement = connection.createStatement();
+//            statement.execute("update t_order where user_id = 1 and order_id =1");
+//        }
+    
+//        DataSource dataSource = YamlDataSourceFactory.newInstance(shardingType);
+//        try (Connection connection = dataSource.getConnection()) {
+//            PreparedStatement preparedStatement = connection.prepareStatement("update t_order t set t.status='zjv3' where t.user_id =? and t.order_id =?");
+//            preparedStatement.setObject(1, 1);
+//            preparedStatement.setObject(2, 1);
+//            preparedStatement.execute();
+//        }
+    
+//        DataSource dataSource = YamlDataSourceFactory.newInstance(shardingType);
+//        try (Connection connection = dataSource.getConnection()) {
+//            PreparedStatement preparedStatement = connection.prepareStatement("update t_order set status='zjv3' where user_id =? and order_id =?");
+//            preparedStatement.setObject(1, 1);
+//            preparedStatement.setObject(2, 1);
+//            preparedStatement.execute();
+//        }
     }
     
     private static CommonService getCommonService(final DataSource dataSource) {
