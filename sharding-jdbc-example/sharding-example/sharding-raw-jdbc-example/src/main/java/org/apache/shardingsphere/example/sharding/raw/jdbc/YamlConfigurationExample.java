@@ -59,13 +59,13 @@ public class YamlConfigurationExample {
 //            preparedStatement.execute();
 //        }
         
-        DataSource dataSource = YamlDataSourceFactory.newInstance(shardingType);
-        try (Connection connection = dataSource.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement("delete from t_order where user_id = ? and order_id =?");
-            preparedStatement.setLong(1, 1);
-            preparedStatement.setLong(2, 1);
-            preparedStatement.execute();
-        }
+//        DataSource dataSource = YamlDataSourceFactory.newInstance(shardingType);
+//        try (Connection connection = dataSource.getConnection()) {
+//            PreparedStatement preparedStatement = connection.prepareStatement("delete from t_order where user_id = ? and order_id =?");
+//            preparedStatement.setLong(1, 1);
+//            preparedStatement.setLong(2, 1);
+//            preparedStatement.execute();
+//        }
     
 //        try (Connection connection = dataSource.getConnection()) {
 //            Statement statement = connection.createStatement();
@@ -85,13 +85,14 @@ public class YamlConfigurationExample {
 //            preparedStatement.execute();
 //        }
     
-//        DataSource dataSource = YamlDataSourceFactory.newInstance(shardingType);
-//        try (Connection connection = dataSource.getConnection()) {
-//            PreparedStatement preparedStatement = connection.prepareStatement("update t_order set status='zjv3' where user_id =? and order_id =?");
-//            preparedStatement.setObject(1, 1);
-//            preparedStatement.setObject(2, 1);
-//            preparedStatement.execute();
-//        }
+        DataSource dataSource = YamlDataSourceFactory.newInstance(shardingType);
+        try (Connection connection = dataSource.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement("update t_order set status=? where user_id =? and order_id =?");
+            preparedStatement.setObject(1, "zjv3");
+            preparedStatement.setObject(2, 1);
+            preparedStatement.setObject(3, 1);
+            preparedStatement.execute();
+        }
     }
     
     private static CommonService getCommonService(final DataSource dataSource) {
