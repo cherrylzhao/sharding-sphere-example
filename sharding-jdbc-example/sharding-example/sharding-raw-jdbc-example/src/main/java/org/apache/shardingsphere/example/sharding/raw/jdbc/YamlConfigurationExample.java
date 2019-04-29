@@ -85,14 +85,30 @@ public class YamlConfigurationExample {
 //            preparedStatement.execute();
 //        }
     
+//        DataSource dataSource = YamlDataSourceFactory.newInstance(shardingType);
+//        try (Connection connection = dataSource.getConnection()) {
+//            PreparedStatement preparedStatement = connection.prepareStatement("update t_order set status=? where user_id =? and order_id =?");
+//            preparedStatement.setObject(1, "zjv3");
+//            preparedStatement.setObject(2, 1);
+//            preparedStatement.setObject(3, 1);
+//            preparedStatement.execute();
+//        }
+    
         DataSource dataSource = YamlDataSourceFactory.newInstance(shardingType);
         try (Connection connection = dataSource.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement("update t_order set status=? where user_id =? and order_id =?");
-            preparedStatement.setObject(1, "zjv3");
+            PreparedStatement preparedStatement = connection.prepareStatement("update t_order set user_id=user_id+1 where user_id =? and order_id =?");
+//            preparedStatement.setObject(1, "zjv3");
+            preparedStatement.setObject(1, 1);
             preparedStatement.setObject(2, 1);
-            preparedStatement.setObject(3, 1);
             preparedStatement.execute();
         }
+    
+//        DataSource dataSource = YamlDataSourceFactory.newInstance(ShardingType.SHARDING_DATABASES);
+//        try (Connection connection = dataSource.getConnection()) {
+//            Statement statement = connection.createStatement();
+//            statement.execute("update account set realtimeremain=realtimeremain+1 where account_no=1000232002 and customer_no=1000666602");
+//            statement.execute("update account set realtimeremain=realtimeremain-1 where account_no=1000232001 and customer_no=1000666601");
+//        }
     }
     
     private static CommonService getCommonService(final DataSource dataSource) {

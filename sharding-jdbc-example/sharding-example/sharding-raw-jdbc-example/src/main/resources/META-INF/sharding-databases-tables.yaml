@@ -40,4 +40,4 @@ shardingRule:
     none:
 
 props:
-  sql.show: false
+  sql.show: true
